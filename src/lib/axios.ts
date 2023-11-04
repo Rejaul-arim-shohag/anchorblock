@@ -9,10 +9,10 @@ import axios from "axios";
 // }
 
 export default axios.create({
-    baseURL: "http://reqres.in/api",
-    headers: {
-        "X-Requested-With": "XMLHttpRequest",
-        "Content-Type": "application/json",
-    },
+    baseURL: "https://reqres.in/api",
+    // headers: {
+    //     "X-Requested-With": "XMLHttpRequest",
+    //     "Content-Type": "application/json",
+    // },
     withCredentials: true,
 });

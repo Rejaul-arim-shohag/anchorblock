@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { SocialSignIn } from "./SocialSignIn";
 import { AtSign, Smile, LockKeyhole, EyeOff } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "../lib/axios";
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type registerInputs = {
@@ -22,7 +22,7 @@ export const SignUp: React.FC = () => {
     setLoading(true);
     const postBody = {
       email: data.email,
-      // name: data.name,
+      name: data.name,
       password: data.password,
     };
 
@@ -37,6 +37,22 @@ export const SignUp: React.FC = () => {
         console.error("Error:", error);
       });
   };
+
+  const [users, setUsers] = React.useState([]);
+  const f = async () => {
+    // const res = await fetch("https://reqres.in/api/users/");
+    // const json = await res.json();
+    // console.log("json", json)
+    // setUsers(json.data);
+    axios.get("/users").then((res)=>{
+      console.log("res", res)
+    }).catch((er)=>{
+      console.log("err", er)
+    })
+  };
+  React.useEffect(() => {
+    f();
+  }, []);
 
   return (
     <div className="container px-5 py-24 flex items-center justify-center mx-auto">
