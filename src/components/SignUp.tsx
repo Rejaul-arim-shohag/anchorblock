@@ -8,7 +8,6 @@ import axios from "axios";
 import { RootState } from "../redux/store";
 import { setToken } from "../redux/authSlice";
 import { Link } from "react-router-dom";
-// import {store} from "../redux/store"
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type registerInputs = {
   email: string;
