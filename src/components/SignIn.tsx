@@ -3,6 +3,7 @@ import { SocialSignIn } from "./SocialSignIn";
 import { AtSign, Smile, LockKeyhole, EyeOff } from "lucide-react";
 import { useState } from "react";
 import axios from "../lib/axios";
+import { Link } from "react-router-dom";
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type registerInputs = {
   email: string;
@@ -117,10 +118,9 @@ export const SignIn: React.FC = () => {
 
         <p className="ml-2 text-sm font-medium text-gray-900 ">
           Already have an account?
-          <a href="#" className="text-blue-600  hover:underline">
+          <Link to="/signup" className="text-blue-600  hover:underline">
             Sign In
-          </a>
-          .
+          </Link>
         </p>
       </div>
     </div>

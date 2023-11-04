@@ -1,8 +1,14 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { SocialSignIn } from "./SocialSignIn";
 import { AtSign, Smile, LockKeyhole, EyeOff } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 import React, { useState } from "react";
-import axios from "../lib/axios";
+
+import axios from "axios";
+import { RootState } from "../redux/store";
+import { setToken } from "../redux/authSlice";
+import { Link } from "react-router-dom";
+// import {store} from "../redux/store"
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type registerInputs = {
   email: string;
@@ -11,6 +17,9 @@ type registerInputs = {
 };
 
 export const SignUp: React.FC = () => {
+  const token = useSelector((state: RootState) => state.auth.token);
+  console.log("token", token);
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const {
     control,
@@ -25,34 +34,16 @@ export const SignUp: React.FC = () => {
       name: data.name,
       password: data.password,
     };
-
     axios
-      .post("/register", postBody)
+      .post("https://reqres.in/api/register", postBody)
       .then((res) => {
-        console.log("res", res)
+        dispatch(setToken(res.data.token));
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
-        console.error("Error:", error);
       });
   };
-
-  const [users, setUsers] = React.useState([]);
-  const f = async () => {
-    // const res = await fetch("https://reqres.in/api/users/");
-    // const json = await res.json();
-    // console.log("json", json)
-    // setUsers(json.data);
-    axios.get("/users").then((res)=>{
-      console.log("res", res)
-    }).catch((er)=>{
-      console.log("err", er)
-    })
-  };
-  React.useEffect(() => {
-    f();
-  }, []);
 
   return (
     <div className="container px-5 py-24 flex items-center justify-center mx-auto">
@@ -130,10 +121,7 @@ export const SignUp: React.FC = () => {
               value=""
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "
             />
-            <label
-              htmlFor="link-checkbox"
-              className="ml-2 font-medium	 text-lg	 text-gray-900 "
-            >
+            <label htmlFor="link-checkbox" className="ml-2 font-medium	 text-lg	 text-gray-900 ">
               I agree with the terms and conditions.
             </label>
           </div>
@@ -147,9 +135,9 @@ export const SignUp: React.FC = () => {
 
         <p className="ml-2 text-sm font-medium text-gray-900 ">
           Already have an account?
-          <a href="#" className="text-blue-600  hover:underline">
+          <Link to="/login" className="text-blue-600  hover:underline">
             Sign In
-          </a>
+          </Link>
           .
         </p>
       </div>
