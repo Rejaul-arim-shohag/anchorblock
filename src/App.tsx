@@ -14,9 +14,10 @@ function App() {
   console.log("token", token);
   return (
     <div>
-      {/* <Menubar /> */}
+    
       <BrowserRouter>
         <Routes>
+        <Route path="/da" element={<DashboardLayout />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/" element={<PrivateRoute component={SignIn} />} />

@@ -26,8 +26,8 @@ export const Users = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold">Users List</h2>
-      <table className="min-w-full divide-y divide-gray-200">
+      <h2 className="text-2xl font-semibold mb-5">Users List</h2>
+      <table className="min-w-full divide-y divide-gray-200 ">
         <thead className="bg-gray-50">
           <tr>
             <th scope="col" className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase tracking-wider">
@@ -39,7 +39,7 @@ export const Users = () => {
             <th scope="col" className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase tracking-wider">
               Email
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-right text-lg font-medium text-gray-500 uppercase tracking-wider">
               Options
             </th>
           </tr>

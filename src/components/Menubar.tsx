@@ -5,8 +5,8 @@ export const Menubar: React.FC = () => {
     <nav className="bg-white border-gray-200">
       <div className="container flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="https://flowbite.com/" className="flex items-center">
-          <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+          <img src="https://res.cloudinary.com/dub6q8hhb/image/upload/v1699130468/Group_5_jyy2ng.png" className="h-8 mr-3" alt="Flowbite Logo" />
+          
         </a>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <select
