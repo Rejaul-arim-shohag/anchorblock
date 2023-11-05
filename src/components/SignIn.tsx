@@ -1,10 +1,16 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import usePasswordToggle from "../hooks/usePasswordToggle";
 import { SocialSignIn } from "./SocialSignIn";
-import { AtSign, LockKeyhole, EyeOff } from "lucide-react";
+import { AtSign, LockKeyhole, EyeOff,Eye } from "lucide-react";
 import React, { Fragment, useState } from "react";
-import axios from "../lib/axios";
+
 import { Link } from "react-router-dom";
 import { Menubar } from "./Menubar";
+import Loader from "./Loader";
+import axios from "axios";
+import useToast from "../hooks/useToast";
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/authSlice";
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type registerInputs = {
   email: string;
@@ -12,7 +18,10 @@ type registerInputs = {
 };
 
 export const SignIn: React.FC = () => {
+  const showToast = useToast();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [visible, togglePassword] = usePasswordToggle();
   const {
     control,
     register,
@@ -26,13 +35,14 @@ export const SignIn: React.FC = () => {
       password: data.password,
     };
     axios
-      .post("/login", postBody)
+      .post("https://reqres.in/api/login", postBody)
       .then((res) => {
         setLoading(false);
+        dispatch(setToken(res?.data?.token));
       })
       .catch((error) => {
         setLoading(false);
-        console.error("Error:", error);
+        showToast(error?.response?.data?.error, "error")    
       });
   };
 
@@ -69,28 +79,35 @@ export const SignIn: React.FC = () => {
                   <input
                     type="text"
                     id="input-group-1"
-                    className="bg-gray-50 border border-gray-300 text-lg text-[#727e92] rounded-lg  block w-full pl-10 p-4  "
+                    className={`bg-gray-50 border text-lg text-[#727e92] rounded-xl block w-full pl-10 p-4 ${errors.email?"border-rose-600":"border-gray-300"} `}
                     placeholder="Your Email"
                     {...field}
                   />
                 )}
               />         
             </div>
-            <p className="text-left mt-1">{errors.email && errors.email.message}</p>
+            <p className="text-left mt-1 text-rose-600">{errors?.email?.message}</p>
             </div>
 
             <div className="relative mb-6">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                 <LockKeyhole size={20} color="#727e92" />
               </div>
-              <div className="absolute inset-y-0 right-5 flex items-center pl-3.5 pointer-events-none">
-                <EyeOff size={20} color="#727e92" />
-              </div>
+              <button
+                onClick={togglePassword}
+                className="absolute inset-y-0 right-5 flex items-center pl-3.5 cursor-pointer"
+              >
+                {visible ? (
+                  <EyeOff size={20} color="#727e92" />
+                ) : (
+                  <Eye size={20} color="#727e92" />
+                )}
+              </button>
               <input
-                type="text"
+                 type={visible ? "text" : "password"}
                 id="input-group-1"
                 className="bg-gray-50 border border-gray-300 text-lg text-[#727e92] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-4  "
-                placeholder="name@flowbite.com"
+                placeholder="Password"
                 {...register("password", { required: true })}
               />
             </div>
@@ -107,10 +124,13 @@ export const SignIn: React.FC = () => {
               </label>
             </div>
             <button
+              disabled={loading}
               type="submit"
-              className="w-full text-white  bg-[#377DFF] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-4 mr-2 mb-2 "
+              className="w-full text-center text-white bg-[#377DFF] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-4 mr-2 mb-2 "
             >
-              Sign Up
+              {
+                loading? <Loader />: "Sign Up"
+              }        
             </button>
           </form>
           <p className="ml-2 text-lg font-medium  text-[#727e92]">
