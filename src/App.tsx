@@ -8,10 +8,13 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-        <Route path="/da" element={<DashboardLayout />} />
+          <Route path="/da" element={<DashboardLayout />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/" element={<PrivateRoute component={DashboardLayout} />} />
+          <Route path="/login" element={<SignIn />} />         
+          <Route
+            path="/"
+            element={<PrivateRoute element={<DashboardLayout />} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

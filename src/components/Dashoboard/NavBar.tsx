@@ -1,19 +1,22 @@
-import { Bell } from "lucide-react";
+import { Bell, Search } from "lucide-react";
 
 export const NavBar = () => {
   return (
     <nav className="bg-gray-50 flex items-center h-20 px-5 shadow-lg">
-      <div className="font-bold italic font-serif  ">
-        <div className="flex items-center">
-          <input className="outline-none py-1 px-3 border border-gray-300" placeholder="Search something... " />
-          <button className="bg-red-400 hover:bg-red-500 transition-colors py-1 px-3 bold text-gray-50">Search</button>
+      <div className="relative flex items-center w-2/5">
+        <input
+          className="bg-[#F0F5FA] w-full outline-none py-3 px-4 border border-gray-300 pr-10 rounded-lg"
+          placeholder="Search"
+        />
+        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+          <Search size={20} color="gray" />
         </div>
       </div>
       <div className="flex-grow"></div>
       <ul className="flex gap-16 flex-row items-center ml-5 mr-6">
         <li className="flex">
           <button>
-            <Bell />
+            <Bell color="gray"/>
           </button>
         </li>
         <li>

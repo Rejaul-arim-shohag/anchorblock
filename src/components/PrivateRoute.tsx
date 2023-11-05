@@ -1,13 +1,16 @@
 import React from "react";
-import { Navigate, Outlet, RouteProps } from "react-router-dom";
+import { Navigate, RouteProps } from "react-router-dom";
 
 type PrivateRouteProps = {
-  component: React.ComponentType;
-} & RouteProps;
+  element: React.ReactElement;
+} & Omit<RouteProps, 'element'>;
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...rest }) => {
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ element, ...rest }) => {
   const token = localStorage.getItem("token");
-  return token ? <Outlet /> : <Navigate to="/login" />;
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return React.cloneElement(element, rest);
 };
 
 export default PrivateRoute;
