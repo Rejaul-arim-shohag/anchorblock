@@ -23,7 +23,7 @@ interface PaginationProps {
 export const Users = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data: users, isLoading, isError } = useGetUsersQuery(currentPage);
-
+ 
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-5">Users List</h2>
@@ -39,7 +39,7 @@ export const Users = () => {
             <th scope="col" className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase tracking-wider">
               Email
             </th>
-            <th scope="col" className="px-6 py-3 text-right text-lg font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-right text-lg font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap flex">
               Options
             </th>
           </tr>
@@ -62,8 +62,8 @@ export const SingleUsr: React.FC<SingleUsrProps> = ({ item }) => {
       <td className="px-6 py-4 whitespace-nowrap text-lg">{item.id}</td>
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
-          <div className="flex-shrink-0 h-20 w-20">
-            <img className="h-20 w-20 rounded-full" src={item.avatar} />
+          <div className="flex-shrink-0 h-16 w-16">
+            <img className="h-16 w-16 rounded-full" src={item.avatar} />
           </div>
           <div className="ml-4 text-lg">{item.first_name}</div>
         </div>

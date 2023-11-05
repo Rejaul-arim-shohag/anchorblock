@@ -2,10 +2,8 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import usePasswordToggle from "../hooks/usePasswordToggle";
 import { SocialSignIn } from "./SocialSignIn";
 import { AtSign, LockKeyhole, EyeOff,Eye } from "lucide-react";
-import React, { Fragment, useState } from "react";
-
-import { Link } from "react-router-dom";
-import { Menubar } from "./Menubar";
+import React, {useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import axios from "axios";
 import useToast from "../hooks/useToast";
@@ -18,6 +16,7 @@ type registerInputs = {
 };
 
 export const SignIn: React.FC = () => {
+  const navigate = useNavigate();
   const showToast = useToast();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -35,10 +34,11 @@ export const SignIn: React.FC = () => {
       password: data.password,
     };
     axios
-      .post("https://reqres.in/api/login", postBody)
+      .post(`${process.env.REACT_APP_API_URL}/login`, postBody)
       .then((res) => {
-        setLoading(false);
         dispatch(setToken(res?.data?.token));
+        navigate("/")
+        setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
@@ -47,8 +47,6 @@ export const SignIn: React.FC = () => {
   };
 
   return (
-    <Fragment>
-      <Menubar />
       <div className="container px-5 py-24 flex items-center justify-center mx-auto">
         <div className="w-2/5 text-center mb-12 ">
           <h2 className="text-3xl font-medium my-3 text-[#383e47]">Sign In</h2>
@@ -142,6 +140,5 @@ export const SignIn: React.FC = () => {
           </p>
         </div>
       </div>
-    </Fragment>
   );
 };

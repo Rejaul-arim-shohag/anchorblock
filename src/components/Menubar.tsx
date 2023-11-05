@@ -1,13 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Menubar: React.FC = () => {
   return (
     <nav className="bg-white border-gray-200">
       <div className="container flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="https://flowbite.com/" className="flex items-center">
-          <img src="https://res.cloudinary.com/dub6q8hhb/image/upload/v1699130468/Group_5_jyy2ng.png" className="h-8 mr-3" alt="Flowbite Logo" />
-          
-        </a>
+        <Link to="#" className="flex items-center">
+          <img
+            src="https://res.cloudinary.com/dub6q8hhb/image/upload/v1699130468/Group_5_jyy2ng.png"
+            className="h-8 mr-3"
+            alt="user"
+          />
+        </Link>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <select
             id="countries"
@@ -17,7 +21,6 @@ export const Menubar: React.FC = () => {
           </select>
         </div>
       </div>
-
     </nav>
   );
 };
